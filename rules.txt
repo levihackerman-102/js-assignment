@@ -1,0 +1,5 @@
+Click a field and get a number. The number indicates how neighbouring squares have mines on them. 
+
+Place a flag where you think a mine should be and click where you think there is no mine.
+
+Expose all empty squares to win.

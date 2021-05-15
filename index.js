@@ -36,23 +36,24 @@ function sound(src)
 	{
 	  this.sound.pause();
 	}
+	this.sound.loop = false;
 }
 
 var mySound1 = new sound("sounds/click.mp3");
 var mySound2 = new sound("sounds/win.mp3");
 var mySound3 = new sound("sounds/lose.mp3");
-
 var mouseState = {
 	x	: 0,
 	y	: 0,
 	click	: null
 };
+
+localStorage.setItem('timeTaken','0');
 var gameState = 
 {
 	difficulty	: 'easy',
 	screen		: 'menu',
 	newBest		: false,
-	timeTaken	: 0,
 	paused      : false,
 	
 	tileW		: 20,
@@ -178,7 +179,7 @@ function checkState()
 		}
 	}
 	
-	gameState.timeTaken = gameTime;
+	localStorage.setItem('timeTaken',gameTime);
 	var cDiff = difficulties[gameState.difficulty];
 	
 	if(cDiff.bestTime==0 ||
@@ -202,7 +203,7 @@ function startLevel(diff)
 {
 	myMusic.play();
 	gameState.newBest	= false;
-	gameState.timeTaken	= 0;
+	localStorage.setItem('timeTaken','0');
 	gameState.difficulty	= diff;
 	gameState.screen	= 'playing';
 	
@@ -412,7 +413,7 @@ function drawPlaying()
 		ctx.fillText("Mines: " + cDiff.mines, 10, 40);
 	
 		var whichT = (gameState.screen=='won' ?
-			gameState.timeTaken : gameTime);
+			localStorage.getItem('timeTaken') : gameTime);
 		var t = '';
 		if((gameTime / 1000) > 60)
 		{
